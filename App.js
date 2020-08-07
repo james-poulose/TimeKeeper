@@ -1,21 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faUserClock } from "@fortawesome/free-solid-svg-icons";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+	return (
+		<View style={styles.container}>
+			<View style={{ height: 150 }}>
+				<Text style={styles.title}>TIMEKEEPER</Text>
+			</View>
+			<View style={{ height: 250 }}>
+				<FontAwesomeIcon icon={faUserClock} size={80} />
+			</View>
+			<View style={{ height: 50, width: 150 }}>
+				<Button
+					onPress={() => Alert.alert("Left button pressed")}
+					title="Manage time"
+					style={styles.button}
+				/>
+			</View>
+			<StatusBar style="auto" />
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+	container: {
+		flexDirection: "column",
+		flex: 1,
+		backgroundColor: "#fff",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	title: {
+		color: "teal",
+		fontSize: 24,
+	},
+	button: {
+		color: "teal",
+	},
 });
