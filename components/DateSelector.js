@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 export class DateSelector extends Component {
 	render() {
-		return <View style={styles.container}></View>;
+		return (
+			<View style={styles.container}>
+				<View>
+					<Calendar></Calendar>
+				</View>
+			</View>
+		);
 	}
 }
 
@@ -12,7 +19,7 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		flex: 1,
 		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
+		padding: 10,
+		paddingTop:20,
 	},
 });
