@@ -20,7 +20,7 @@ export class Home extends Component {
 				</View>
 				<View style={{ height: 50 }}>
 					<TouchableOpacity
-						onPress={() => Alert.alert("Left button pressed")}
+						onPress={() => this.props.navigation.navigate("DateSelector")}
 						title="Button"
 						style={styles.button}
 					>
