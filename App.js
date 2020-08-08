@@ -12,19 +12,14 @@ export default class App extends Component {
 	render() {
 		return (
 			<NavigationContainer>
-				<Stack.Navigator
-					initialRouteName="Home"
-					screenOptions={{ headerShown: false }}
-				>
-					<Stack.Screen name="Home" component={Home} />
+				<Stack.Navigator initialRouteName="Home">
+					<Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 					<Stack.Screen
 						name="DateSelector"
 						component={DateSelector}
+						options={{ title: "Choose Date" }}
 					/>
-					<Stack.Screen
-						name="WorkDayDetails"
-						component={WorkDayDetails}
-					/>					
+					<Stack.Screen name="WorkDayDetails" component={WorkDayDetails} options={{ title: "Time Details" }}/>
 				</Stack.Navigator>
 			</NavigationContainer>
 		);
