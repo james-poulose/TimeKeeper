@@ -29,7 +29,7 @@ export class DateSelector extends Component {
 		// 	];
 		// });
 
-		// return data from local storage
+		// return data from local storage		
 	};
 
 	onDayPress = (day) => {

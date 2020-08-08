@@ -64,9 +64,13 @@ const styles = StyleSheet.create({
 	},
 	row: {
 		height: 30,
+		borderBottomWidth: 1,
+		borderColor: "lightgrey",
+		marginTop: 15
 	},
 	text: {
 		color: "teal",
+		fontSize: 16,
 	},
 	remarks: {
 		padding: 1,

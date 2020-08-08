@@ -150,7 +150,7 @@ export class WorkDayDetails extends Component {
 				</View>
 
 				<View style={{ flex: 1 }}>
-					<View style={{ flex: 1 }}>
+					<View style={{ flex: 1, paddingTop: 10 }}>
 						<TouchableOpacity
 							onPress={() => this.props.navigation.navigate("DateSelector")}
 							style={styles.button}
