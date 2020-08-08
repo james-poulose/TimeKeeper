@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { WorkDaySummary } from "./WorkDaySummary";
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 export class DateSelector extends Component {
 	state = {
@@ -12,8 +13,13 @@ export class DateSelector extends Component {
 		remarks: "None",
 	};
 	onDayPress = (day) => {
-		Alert.alert(day.dateString);
-		this.setState({ selectedState: day.dateString });
+		this.setState({
+			selectedDate: day.dateString,
+			dayType: "None",
+			timeIn: "in",
+			timeOut: "None",
+			remarks: "None",
+		});
 	};
 
 	onDayLongPress(day) {
@@ -24,10 +30,7 @@ export class DateSelector extends Component {
 		return (
 			<View style={styles.container}>
 				<View>
-					<Calendar
-						onDayPress={this.onDayPress}
-						onDayLongPress={this.onDayLongPress}
-					/>
+					<Calendar onDayPress={this.onDayPress} onDayLongPress={this.onDayLongPress} />
 				</View>
 				<View>
 					<WorkDaySummary
@@ -38,6 +41,13 @@ export class DateSelector extends Component {
 						remarks={this.state.remarks}
 					></WorkDaySummary>
 				</View>
+				<View style={{ flex: 1 }}>
+					<View style={{ flex: 1, justifyContent: "flex-end" }}>
+						<TouchableOpacity style={styles.button}>
+							<Text style={{ color: "white", fontSize: 16 }}>Bottom Button</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
 			</View>
 		);
 	}
@@ -45,10 +55,29 @@ export class DateSelector extends Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flexDirection: "column",
 		flex: 1,
 		backgroundColor: "#fff",
 		padding: 10,
 		paddingTop: 20,
+	},
+	button: {
+		backgroundColor: "teal",
+		borderWidth: 0,
+		padding: 10,
+		borderRadius: 7,
+		alignItems: "center",
+		width: "100%",
+		height: 40,
+		justifyContent: "center",
+	},
+	bottomView: {
+		flex: 1,
+		justifyContent: "flex-end",
+		borderWidth: 0,
+		position: "absolute",
+		bottom: 0,
+	},
+	row: {
+		height: 40,
 	},
 });

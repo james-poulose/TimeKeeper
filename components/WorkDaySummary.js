@@ -9,7 +9,7 @@ export class WorkDaySummary extends Component {
 				<Grid>
 					<Row style={styles.row}>
 						<Col>
-							<Text style={styles.text}>Date</Text>
+							<Text style={styles.text}>Date:</Text>
 						</Col>
 						<Col>
 							<Text style={styles.text}>
@@ -19,7 +19,7 @@ export class WorkDaySummary extends Component {
 					</Row>
 					<Row style={styles.row}>
 						<Col>
-							<Text style={styles.text}>Type</Text>
+							<Text style={styles.text}>Type:</Text>
 						</Col>
 						<Col>
 							<Text style={styles.text}>
@@ -29,7 +29,7 @@ export class WorkDaySummary extends Component {
 					</Row>
 					<Row style={styles.row}>
 						<Col>
-							<Text style={styles.text}>Time in</Text>
+							<Text style={styles.text}>Time in:</Text>
 						</Col>
 						<Col>
 							<Text style={styles.text}>{this.props.timeIn}</Text>
@@ -37,7 +37,7 @@ export class WorkDaySummary extends Component {
 					</Row>
 					<Row style={styles.row}>
 						<Col>
-							<Text style={styles.text}>Time out</Text>
+							<Text style={styles.text}>Time out:</Text>
 						</Col>
 						<Col>
 							<Text style={styles.text}>
@@ -47,7 +47,7 @@ export class WorkDaySummary extends Component {
 					</Row>
 					<Row style={styles.row}>
 						<Col>
-							<Text style={styles.text}>Remarks</Text>
+							<Text style={styles.text}>Remarks:</Text>
 						</Col>
 						<Col>
 							<Text style={styles.text}>
