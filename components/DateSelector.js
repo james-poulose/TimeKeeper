@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { WorkDaySummary } from "./WorkDaySummary";
-import { Col, Row, Grid } from "react-native-easy-grid";
 
 export class DateSelector extends Component {
 	state = {
@@ -44,7 +43,7 @@ export class DateSelector extends Component {
 				<View style={{ flex: 1 }}>
 					<View style={{ flex: 1, justifyContent: "flex-end" }}>
 						<TouchableOpacity style={styles.button}>
-							<Text style={{ color: "white", fontSize: 16 }}>Bottom Button</Text>
+							<Text style={{ color: "white", fontSize: 16 }}>Edit</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
 		borderRadius: 7,
 		alignItems: "center",
 		width: "100%",
-		height: 40,
+		height: 60,
 		justifyContent: "center",
 	},
 	bottomView: {
