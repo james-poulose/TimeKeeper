@@ -89,13 +89,15 @@ export class WorkDayDetails extends Component {
 					labelStyle={{ fontSize: 14 }}
 					radioButtons={this.state.radioButtons}
 					onPress={this.onWorkDayTypeChanged}
+					style={{height:50}}
 				/>
-				<View>
+				<View style={{height:0}}>
 					{this.state.showTimeIn && (
 						<DateTimePicker
 							testID="dateTimePicker"
 							value={new Date()}
 							mode="time"
+							textColor="#FFFFFF"
 							is24Hour={false}
 							display="default"
 							onChange={this.onTimeInChanged}
@@ -112,7 +114,7 @@ export class WorkDayDetails extends Component {
 						/>
 					)}
 				</View>
-				<View style={{ height: 100, marginTop: 20 }}>
+				<View style={styles.timeInOut}>
 					<Grid>
 						<Row style={styles.row}>
 							<Col>
@@ -155,7 +157,7 @@ export class WorkDayDetails extends Component {
 					/>
 				</View>
 				<View style={{ flex: 1 }}>
-					<View style={{ flex: 1, paddingTop: 10, justifyContent: "flex-end" }}>
+					<View style={{ flex: 1, justifyContent: "flex-end" }}>
 						<TouchableOpacity onPress={this.onSaveClicked} style={styles.button}>
 							<Text style={{ color: "white", fontSize: 16 }}>Save</Text>
 						</TouchableOpacity>
@@ -168,15 +170,17 @@ export class WorkDayDetails extends Component {
 
 const styles = StyleSheet.create({
 	container: {
+		flex: 1,
 		backgroundColor: "#fff",
 		padding: 20,
 	},
 	title: {
 		padding: 20,
 	},
+	timeInOut: { flex:1 },
 	remarks: {
 		padding: 1,
-		textAlignVertical: "top",
+		textAlignVertical: "top",		
 	},
 	textArea: {
 		borderWidth: 1,
@@ -197,10 +201,8 @@ const styles = StyleSheet.create({
 	button: {
 		backgroundColor: "teal",
 		borderWidth: 0,
-		padding: 10,
 		borderRadius: 7,
-		alignItems: "center",
-		width: "100%",
+		alignItems: "center",		
 		height: 60,
 		justifyContent: "center",
 	},
