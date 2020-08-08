@@ -6,6 +6,10 @@ import { WorkDaySummary } from "./WorkDaySummary";
 export class DateSelector extends Component {
 	state = {
 		selectedDate: "None",
+		dayType: "None",
+		timeIn: "None",
+		timeOut: "None",
+		remarks: "None",
 	};
 	onDayPress = (day) => {
 		Alert.alert(day.dateString);
@@ -24,10 +28,14 @@ export class DateSelector extends Component {
 						onDayPress={this.onDayPress}
 						onDayLongPress={this.onDayLongPress}
 					/>
-				</View>				
+				</View>
 				<View>
 					<WorkDaySummary
 						selectedDate={this.state.selectedDate}
+						dayType={this.state.dayType}
+						timeIn={this.state.timeIn}
+						timeOut={this.state.timeOut}
+						remarks={this.state.remarks}
 					></WorkDaySummary>
 				</View>
 			</View>
