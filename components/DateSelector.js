@@ -5,13 +5,33 @@ import { WorkDaySummary } from "./WorkDaySummary";
 import moment from "moment";
 
 export class DateSelector extends Component {
-	state = {
-		selectedDate: "None",
-		dayType: "NA",
-		timeIn: "NA",
-		timeOut: "NA",
-		remarks: "NA",
+	constructor(props) {
+		super(props);
+		this.state = {
+			selectedDate: "None",
+			dayType: "NA",
+			timeIn: "NA",
+			timeOut: "NA",
+			remarks: "NA",
+		};		
+	}
+
+	componentDidMount(){
+		// this.getDataFromServer();
+	}
+
+	getDataFromServer = () => {
+		// fetch("http://your-hr-api/").then((result) => {
+		// 	let data = [
+		// 		{ date: "", timeIn: "" },
+		// 		{ date: "", timeIn: "" },
+		// 		{ date: "", timeIn: "" },
+		// 	];
+		// });
+
+		// return data from local storage
 	};
+
 	onDayPress = (day) => {
 		var now = moment(day.dateString).format("DD-MMM-YYYY");
 		this.setState({
@@ -31,7 +51,7 @@ export class DateSelector extends Component {
 		return (
 			<View style={styles.container}>
 				<View>
-					<Calendar onDayPress={this.onDayPress} onDayLongPress={this.onDayLongPress} />
+					<Calendar onDayPress={this.onDayPress} onDayLongPress={this.onDayLongPress} horizontal={true} />
 				</View>
 				<View>
 					<WorkDaySummary

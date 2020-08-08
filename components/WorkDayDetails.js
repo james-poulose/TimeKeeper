@@ -152,7 +152,7 @@ export class WorkDayDetails extends Component {
 				<View style={{ flex: 1 }}>
 					<View style={{ flex: 1 }}>
 						<TouchableOpacity
-							onPress={() => this.props.navigation.navigate("WorkDayDetails")}
+							onPress={() => this.props.navigation.navigate("DateSelector")}
 							style={styles.button}
 						>
 							<Text style={{ color: "white", fontSize: 16 }}>Save</Text>
