@@ -14,6 +14,8 @@ export class WorkDayDetails extends Component {
 			remarks: "",
 			showTimeIn: false,
 			showTimeOut: false,
+			showTimeControls: false,
+			showTimeRemarks: false,
 			timeIn: "",
 			timeOut: "",
 			radioButtons: [
@@ -68,11 +70,10 @@ export class WorkDayDetails extends Component {
 		this.setState({ radioButtons });
 
 		let selectedItem = this.state.radioButtons.find((e) => e.checked == true);
-		this.setState({ remarks: selectedItem.value });
-		// switch(selectedItem.value){
-		// 	case "Casual":
-		// 	case "Regular":this.setState({remarks: selectedItem.value});
-		// }
+		let showRemarks = selectedItem.value == "Casual" || selectedItem.value == "Sick" || selectedItem.value == "Other";
+		let showTimeControls = selectedItem.value == "Casual" || selectedItem.value == "Regular";
+
+		this.setState({ showTimeControls: showTimeControls, showTimeRemarks: showRemarks });
 	};
 
 	onSaveClicked = () => {
@@ -112,48 +113,52 @@ export class WorkDayDetails extends Component {
 						/>
 					)}
 				</View>
-				<View style={styles.timeInOut}>
-					<Grid>
-						<Row style={styles.row}>
-							<Col>
-								<Text style={styles.text}>Time in</Text>
-							</Col>
-							<Col>
-								<Text>{this.state.timeIn}</Text>
-							</Col>
-							<Col>
-								<TouchableOpacity style={styles.timerButton} onPress={this.onTimeInClicked}>
-									<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
-								</TouchableOpacity>
-							</Col>
-						</Row>
-						<Row style={styles.row}>
-							<Col>
-								<Text style={styles.text}>Time out</Text>
-							</Col>
-							<Col>
-								<Text>{this.state.timeOut}</Text>
-							</Col>
-							<Col>
-								<TouchableOpacity style={styles.timerButton} onPress={this.onTimeOutClicked}>
-									<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
-								</TouchableOpacity>
-							</Col>
-						</Row>
-					</Grid>
-				</View>
-				<View style={styles.remarks}>
-					<Text style={{ color: "teal" }}>Remarks</Text>
-					<TextInput
-						multiline={true}
-						numberOfLines={6}
-						placeholder="Enter remarks here"
-						placeholderTextColor="lightgrey"
-						onChangeText={(remarks) => this.setState({ remarks })}
-						value={this.state.remarks}
-						style={styles.textArea}
-					/>
-				</View>
+				{this.state.showTimeControls && (
+					<View style={styles.timeInOut}>
+						<Grid>
+							<Row style={styles.row}>
+								<Col>
+									<Text style={styles.text}>Time in</Text>
+								</Col>
+								<Col>
+									<Text>{this.state.timeIn}</Text>
+								</Col>
+								<Col>
+									<TouchableOpacity style={styles.timerButton} onPress={this.onTimeInClicked}>
+										<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
+									</TouchableOpacity>
+								</Col>
+							</Row>
+							<Row style={styles.row}>
+								<Col>
+									<Text style={styles.text}>Time out</Text>
+								</Col>
+								<Col>
+									<Text>{this.state.timeOut}</Text>
+								</Col>
+								<Col>
+									<TouchableOpacity style={styles.timerButton} onPress={this.onTimeOutClicked}>
+										<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
+									</TouchableOpacity>
+								</Col>
+							</Row>
+						</Grid>
+					</View>
+				)}
+				{this.state.showTimeRemarks && (
+					<View style={styles.remarks}>
+						<Text style={{ color: "teal" }}>Remarks</Text>
+						<TextInput
+							multiline={true}
+							numberOfLines={6}
+							placeholder="Enter remarks here"
+							placeholderTextColor="lightgrey"
+							onChangeText={(remarks) => this.setState({ remarks })}
+							value={this.state.remarks}
+							style={styles.textArea}
+						/>
+					</View>
+				)}
 				<View style={{ flex: 1 }}>
 					<View style={{ flex: 1, justifyContent: "flex-end" }}>
 						<TouchableOpacity onPress={this.onSaveClicked} style={styles.button}>
