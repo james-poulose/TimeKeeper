@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { WorkDaySummary } from "./WorkDaySummary";
-import moment from 'moment';
+import moment from "moment";
 
 export class DateSelector extends Component {
 	state = {
@@ -16,15 +16,15 @@ export class DateSelector extends Component {
 		var now = moment(day.dateString).format("DD-MMM-YYYY");
 		this.setState({
 			selectedDate: now,
-			// dayType: "Noppne",
-			// timeIn: "in",
-			// timeOut: "fgf",
-			// remarks: "rtr",
+			// dayType: "NA",
+			// timeIn: "NA",
+			// timeOut: "NA",
+			// remarks: "NA",
 		});
 	};
 
 	onDayLongPress(day) {
-		this.props.navigation.navigate("WorkDaySummary");
+		this.props.navigation.navigate("WorkDayDetails");
 	}
 
 	render() {
@@ -44,7 +44,10 @@ export class DateSelector extends Component {
 				</View>
 				<View style={{ flex: 1 }}>
 					<View style={{ flex: 1, justifyContent: "flex-end" }}>
-						<TouchableOpacity style={styles.button}>
+						<TouchableOpacity
+							onPress={() => this.props.navigation.navigate("WorkDayDetails")}
+							style={styles.button}
+						>
 							<Text style={{ color: "white", fontSize: 16 }}>Edit</Text>
 						</TouchableOpacity>
 					</View>

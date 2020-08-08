@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { RadioGroup } from "react-native-btr";
 
-export class WorkDay extends Component {
+export class WorkDayDetails extends Component {
 	state = {
 		radioButtons: [
 			{
@@ -25,7 +25,8 @@ export class WorkDay extends Component {
 				label: "Other",
 				value: "Other",
 				color: "teal",
-			},			{
+			},
+			{
 				label: "Not available",
 				value: "NA",
 				color: "teal",
@@ -35,17 +36,15 @@ export class WorkDay extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>WorkDay goes here!</Text>
-				<View>
-					<RadioGroup
-						color="#484"
-						labelStyle={{ fontSize: 14 }}
-						radioButtons={this.state.radioButtons}
-						onPress={(radioButtons) =>
-							this.setState({ radioButtons })
-						}
-					/>
+				<View style={styles.title}>
+					<Text style={{ fontSize: 18 }}>Modify Details</Text>
 				</View>
+				<RadioGroup
+					color="#484"
+					labelStyle={{ fontSize: 14 }}
+					radioButtons={this.state.radioButtons}
+					onPress={(radioButtons) => this.setState({ radioButtons })}
+				/>
 			</View>
 		);
 	}
@@ -55,6 +54,8 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#fff",
 		padding: 20,
-		paddingTop: 20,
+	},
+	title: {
+		padding: 20,
 	},
 });

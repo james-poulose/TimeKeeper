@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import React, { Component } from "react";
 import { Home } from "./components/Home";
 import { DateSelector } from "./components/DateSelector";
+import { WorkDayDetails } from "./components/WorkDayDetails";
 
 import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
@@ -20,6 +21,10 @@ export default class App extends Component {
 						name="DateSelector"
 						component={DateSelector}
 					/>
+					<Stack.Screen
+						name="WorkDayDetails"
+						component={WorkDayDetails}
+					/>					
 				</Stack.Navigator>
 			</NavigationContainer>
 		);
