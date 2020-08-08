@@ -8,41 +8,44 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import moment from "moment";
 
 export class WorkDayDetails extends Component {
-	state = {
-		remarks: "",
-		showTimeIn: false,
-		showTimeOut: false,
-		timeIn: "",
-		timeOut: "",
-		radioButtons: [
-			{
-				label: "Regular",
-				value: "Regular",
-				color: "teal",
-			},
-			{
-				label: "Casual Leave",
-				value: "Casual",
-				color: "teal",
-			},
-			{
-				label: "Sick Leave",
-				value: "Sick",
-				color: "teal",
-			},
-			{
-				label: "Other",
-				value: "Other",
-				color: "teal",
-			},
-			{
-				label: "Not available",
-				value: "NA",
-				checked: true,
-				color: "teal",
-			},
-		],
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			remarks: "",
+			showTimeIn: false,
+			showTimeOut: false,
+			timeIn: "",
+			timeOut: "",
+			radioButtons: [
+				{
+					label: "Regular",
+					value: "Regular",
+					color: "teal",
+				},
+				{
+					label: "Casual Leave",
+					value: "Casual",
+					color: "teal",
+				},
+				{
+					label: "Sick Leave",
+					value: "Sick",
+					color: "teal",
+				},
+				{
+					label: "Other",
+					value: "Other",
+					color: "teal",
+				},
+				{
+					label: "Not available",
+					value: "NA",
+					checked: true,
+					color: "teal",
+				},
+			],
+		};
+	}
 
 	onTimeInChanged = (event, selectedDate) => {
 		var time = moment(selectedDate).format("h:mm:ss a");
@@ -72,7 +75,7 @@ export class WorkDayDetails extends Component {
 		// }
 	};
 
-	onSaveClicked = () => {		
+	onSaveClicked = () => {
 		this.props.navigation.navigate("DateSelector");
 	};
 
@@ -84,9 +87,9 @@ export class WorkDayDetails extends Component {
 					labelStyle={{ fontSize: 14 }}
 					radioButtons={this.state.radioButtons}
 					onPress={this.onWorkDayTypeChanged}
-					style={{height:50}}
+					style={{ height: 50 }}
 				/>
-				<View style={{height:0}}>
+				<View style={{ height: 0 }}>
 					{this.state.showTimeIn && (
 						<DateTimePicker
 							testID="dateTimePicker"
@@ -172,10 +175,10 @@ const styles = StyleSheet.create({
 	title: {
 		padding: 20,
 	},
-	timeInOut: { flex:1 },
+	timeInOut: { flex: 1 },
 	remarks: {
 		padding: 1,
-		textAlignVertical: "top",		
+		textAlignVertical: "top",
 	},
 	textArea: {
 		borderWidth: 1,
@@ -197,7 +200,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "teal",
 		borderWidth: 0,
 		borderRadius: 7,
-		alignItems: "center",		
+		alignItems: "center",
 		height: 60,
 		justifyContent: "center",
 	},
