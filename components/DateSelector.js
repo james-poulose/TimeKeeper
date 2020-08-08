@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { WorkDay } from "./WorkDay";
 
 export class DateSelector extends Component {
 	render() {
@@ -8,6 +9,9 @@ export class DateSelector extends Component {
 			<View style={styles.container}>
 				<View>
 					<Calendar></Calendar>
+				</View>
+				<View>
+					<WorkDay></WorkDay>
 				</View>
 			</View>
 		);
@@ -20,6 +24,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "#fff",
 		padding: 10,
-		paddingTop:20,
+		paddingTop: 20,
 	},
 });
