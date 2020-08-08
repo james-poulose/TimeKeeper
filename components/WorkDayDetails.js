@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
 import { RadioGroup } from "react-native-btr";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faUserClock } from "@fortawesome/free-solid-svg-icons";
 
 export class WorkDayDetails extends Component {
 	state = {
 		remarks: "",
+		showTimeIn: false,
+		showTimeOut: false,
 		radioButtons: [
 			{
 				label: "Regular",
@@ -34,6 +39,20 @@ export class WorkDayDetails extends Component {
 			},
 		],
 	};
+
+	onTimeInChanged() {}
+
+	onWorkDayTypeChanged = (radioButtons) => {
+		this.setState({ radioButtons });
+
+		let selectedItem = this.state.radioButtons.find((e) => e.checked == true);
+		this.setState({ remarks: selectedItem.value });
+		// switch(selectedItem.value){
+		// 	case "Casual":
+		// 	case "Regular":this.setState({remarks: selectedItem.value});
+		// }
+	};
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -44,8 +63,25 @@ export class WorkDayDetails extends Component {
 					color="#484"
 					labelStyle={{ fontSize: 14 }}
 					radioButtons={this.state.radioButtons}
-					onPress={(radioButtons) => this.setState({ radioButtons })}
+					onPress={this.onWorkDayTypeChanged}
 				/>
+				<View>
+					{this.state.showTimeIn && (
+						<DateTimePicker
+							testID="dateTimePicker"
+							value={new Date()}
+							mode="time"
+							is24Hour={false}
+							display="default"
+							onChange={this.onTimeInChanged}
+						/>
+					)}
+				</View>
+				<View style={{ height: 100 }}>
+					<TouchableOpacity style={styles.timerButton}>
+						<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
+					</TouchableOpacity>
+				</View>
 				<View style={styles.remarks}>
 					<Text style={{ color: "teal" }}>Remarks</Text>
 					<TextInput
@@ -57,6 +93,17 @@ export class WorkDayDetails extends Component {
 						value={this.state.remarks}
 						style={styles.textArea}
 					/>
+				</View>
+
+				<View style={{ flex: 1 }}>
+					<View style={{ flex: 1 }}>
+						<TouchableOpacity
+							onPress={() => this.props.navigation.navigate("WorkDayDetails")}
+							style={styles.button}
+						>
+							<Text style={{ color: "white", fontSize: 16 }}>Save</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 			</View>
 		);
@@ -81,5 +128,24 @@ const styles = StyleSheet.create({
 		borderColor: "teal",
 		padding: 5,
 		textAlignVertical: "top",
+	},
+	timerButton: {
+		color: "teal",
+		borderWidth: 0,
+		padding: 10,
+		borderRadius: 7,
+		alignItems: "center",		
+		height: 60,
+		justifyContent: "center",
+	},
+	button: {
+		backgroundColor: "teal",
+		borderWidth: 0,
+		padding: 10,
+		borderRadius: 7,
+		alignItems: "center",
+		width: "100%",
+		height: 60,
+		justifyContent: "center",
 	},
 });

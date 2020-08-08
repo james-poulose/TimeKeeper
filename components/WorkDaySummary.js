@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 export class WorkDaySummary extends Component {
+	state = {
+		remarks: "",
+	};
 	render() {
 		return (
 			<View style={styles.container}>
@@ -12,9 +15,7 @@ export class WorkDaySummary extends Component {
 							<Text style={styles.text}>Date:</Text>
 						</Col>
 						<Col>
-							<Text style={styles.text}>
-								{this.props.selectedDate}
-							</Text>
+							<Text style={styles.text}>{this.props.selectedDate}</Text>
 						</Col>
 					</Row>
 					<Row style={styles.row}>
@@ -22,9 +23,7 @@ export class WorkDaySummary extends Component {
 							<Text style={styles.text}>Type:</Text>
 						</Col>
 						<Col>
-							<Text style={styles.text}>
-								{this.props.dayType}
-							</Text>
+							<Text style={styles.text}>{this.props.dayType}</Text>
 						</Col>
 					</Row>
 					<Row style={styles.row}>
@@ -40,9 +39,7 @@ export class WorkDaySummary extends Component {
 							<Text style={styles.text}>Time out:</Text>
 						</Col>
 						<Col>
-							<Text style={styles.text}>
-								{this.props.timeOut}
-							</Text>
+							<Text style={styles.text}>{this.props.timeOut}</Text>
 						</Col>
 					</Row>
 					<Row style={styles.row}>
@@ -50,9 +47,7 @@ export class WorkDaySummary extends Component {
 							<Text style={styles.text}>Remarks:</Text>
 						</Col>
 						<Col>
-							<Text style={styles.text}>
-								{this.props.remarks}
-							</Text>
+							<Text style={styles.text}>{this.props.remarks}</Text>
 						</Col>
 					</Row>
 				</Grid>
@@ -72,5 +67,15 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		color: "teal",
+	},
+	remarks: {
+		padding: 1,
+		textAlignVertical: "top",
+	},
+	paragraph: {
+		margin: 24,
+		fontSize: 18,
+		fontWeight: "bold",
+		textAlign: "center",
 	},
 });
