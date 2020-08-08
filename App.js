@@ -17,9 +17,13 @@ export default class App extends Component {
 					<Stack.Screen
 						name="DateSelector"
 						component={DateSelector}
-						options={{ title: "Choose Date" }}
+						options={{ title: "Choose Date", headerTintColor: "teal" }}
 					/>
-					<Stack.Screen name="WorkDayDetails" component={WorkDayDetails} options={{ title: "Time Details" }}/>
+					<Stack.Screen
+						name="WorkDayDetails"
+						component={WorkDayDetails}
+						options={{ title: "Time Details", headerTintColor: "teal" }}
+					/>
 				</Stack.Navigator>
 			</NavigationContainer>
 		);

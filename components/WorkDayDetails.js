@@ -72,18 +72,13 @@ export class WorkDayDetails extends Component {
 		// }
 	};
 
-	onSaveClicked = () => {
-		Alert.alert("dsdd");
-		this.setState({ remarks: "selectedItem.value" });
+	onSaveClicked = () => {		
 		this.props.navigation.navigate("DateSelector");
 	};
 
 	render() {
 		return (
 			<View style={styles.container}>
-				<View style={styles.title}>
-					<Text style={{ fontSize: 18 }}>Modify Details</Text>
-				</View>
 				<RadioGroup
 					color="#484"
 					labelStyle={{ fontSize: 14 }}
