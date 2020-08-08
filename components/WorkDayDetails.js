@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
 import { RadioGroup } from "react-native-btr";
 
 export class WorkDayDetails extends Component {
 	state = {
+		remarks: "",
 		radioButtons: [
 			{
 				label: "Regular",
 				value: "Regular",
-				checked: true,
 				color: "teal",
 			},
 			{
@@ -29,6 +29,7 @@ export class WorkDayDetails extends Component {
 			{
 				label: "Not available",
 				value: "NA",
+				checked: true,
 				color: "teal",
 			},
 		],
@@ -45,6 +46,18 @@ export class WorkDayDetails extends Component {
 					radioButtons={this.state.radioButtons}
 					onPress={(radioButtons) => this.setState({ radioButtons })}
 				/>
+				<View style={styles.remarks}>
+					<Text style={{ color: "teal" }}>Remarks</Text>
+					<TextInput
+						multiline={true}
+						numberOfLines={6}
+						placeholder="Enter remarks here"
+						placeholderTextColor="lightgrey"
+						onChangeText={(remarks) => this.setState({ remarks })}
+						value={this.state.remarks}
+						style={styles.textArea}
+					/>
+				</View>
 			</View>
 		);
 	}
@@ -57,5 +70,16 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		padding: 20,
+	},
+	remarks: {
+		padding: 1,
+		textAlignVertical: "top",
+	},
+	textArea: {
+		borderWidth: 1,
+		borderRadius: 5,
+		borderColor: "teal",
+		padding: 5,
+		textAlignVertical: "top",
 	},
 });
