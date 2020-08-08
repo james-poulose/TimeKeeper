@@ -2,22 +2,24 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { WorkDaySummary } from "./WorkDaySummary";
+import moment from 'moment';
 
 export class DateSelector extends Component {
 	state = {
 		selectedDate: "None",
-		dayType: "None",
-		timeIn: "None",
-		timeOut: "None",
-		remarks: "None",
+		dayType: "NA",
+		timeIn: "NA",
+		timeOut: "NA",
+		remarks: "NA",
 	};
 	onDayPress = (day) => {
+		var now = moment(day.dateString).format("DD-MMM-YYYY");
 		this.setState({
-			selectedDate: day.dateString,
-			dayType: "None",
-			timeIn: "in",
-			timeOut: "None",
-			remarks: "None",
+			selectedDate: now,
+			// dayType: "Noppne",
+			// timeIn: "in",
+			// timeOut: "fgf",
+			// remarks: "rtr",
 		});
 	};
 
