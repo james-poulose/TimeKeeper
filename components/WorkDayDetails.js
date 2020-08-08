@@ -44,6 +44,13 @@ export class WorkDayDetails extends Component {
 	};
 
 	onTimeInChanged() {}
+	onTimeInClicked = () => {
+		this.setState({ showTimeIn: true });
+	};
+
+	onTimeOutClicked = () => {
+		this.setState({ showTimeOut: true });
+	};
 
 	onWorkDayTypeChanged = (radioButtons) => {
 		this.setState({ radioButtons });
@@ -90,7 +97,7 @@ export class WorkDayDetails extends Component {
 								<Text>{this.state.timeIn}</Text>
 							</Col>
 							<Col>
-								<TouchableOpacity style={styles.timerButton}>
+								<TouchableOpacity style={styles.timerButton} onPress={this.onTimeInClicked}>
 									<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
 								</TouchableOpacity>
 							</Col>
@@ -103,7 +110,7 @@ export class WorkDayDetails extends Component {
 								<Text>{this.state.timeOut}</Text>
 							</Col>
 							<Col>
-								<TouchableOpacity style={styles.timerButton}>
+								<TouchableOpacity style={styles.timerButton} onPress={this.onTimeOutClicked}>
 									<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
 								</TouchableOpacity>
 							</Col>
