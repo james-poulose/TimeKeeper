@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
 import { RadioGroup } from "react-native-btr";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -70,6 +70,12 @@ export class WorkDayDetails extends Component {
 		// 	case "Casual":
 		// 	case "Regular":this.setState({remarks: selectedItem.value});
 		// }
+	};
+
+	onSaveClicked = () => {
+		Alert.alert("dsdd");
+		this.setState({ remarks: "selectedItem.value" });
+		this.props.navigation.navigate("DateSelector");
 	};
 
 	render() {
@@ -148,13 +154,9 @@ export class WorkDayDetails extends Component {
 						style={styles.textArea}
 					/>
 				</View>
-
 				<View style={{ flex: 1 }}>
-					<View style={{ flex: 1, paddingTop: 10 }}>
-						<TouchableOpacity
-							onPress={() => this.props.navigation.navigate("DateSelector")}
-							style={styles.button}
-						>
+					<View style={{ flex: 1, paddingTop: 10, justifyContent: "flex-end" }}>
+						<TouchableOpacity onPress={this.onSaveClicked} style={styles.button}>
 							<Text style={{ color: "white", fontSize: 16 }}>Save</Text>
 						</TouchableOpacity>
 					</View>
