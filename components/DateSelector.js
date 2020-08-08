@@ -8,7 +8,16 @@ export class DateSelector extends Component {
 		return (
 			<View style={styles.container}>
 				<View>
-					<Calendar></Calendar>
+					<Calendar>
+						onDayPress=
+						{(day) => {
+							Alert.alert(day.dateString);
+						}}
+						onDayLongPress=
+						{(day) => {
+							Alert.alert(day.dateString);
+						}}
+					</Calendar>
 				</View>
 				<View>
 					<WorkDay></WorkDay>
