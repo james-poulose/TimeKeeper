@@ -1,26 +1,34 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
-import { WorkDay } from "./WorkDay";
+import { WorkDaySummary } from "./WorkDaySummary";
 
 export class DateSelector extends Component {
+	state = {
+		selectedDate: "None",
+	};
+	onDayPress = (day) => {
+		Alert.alert(day.dateString);
+		this.setState({ selectedState: day.dateString });
+	};
+
+	onDayLongPress(day) {
+		this.props.navigation.navigate("WorkDaySummary");
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
 				<View>
-					<Calendar>
-						onDayPress=
-						{(day) => {
-							Alert.alert(day.dateString);
-						}}
-						onDayLongPress=
-						{(day) => {
-							Alert.alert(day.dateString);
-						}}
-					</Calendar>
-				</View>
+					<Calendar
+						onDayPress={this.onDayPress}
+						onDayLongPress={this.onDayLongPress}
+					/>
+				</View>				
 				<View>
-					<WorkDay></WorkDay>
+					<WorkDaySummary
+						selectedDate={this.state.selectedDate}
+					></WorkDaySummary>
 				</View>
 			</View>
 		);
