@@ -5,14 +5,15 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUserClock } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Grid } from "react-native-easy-grid";
+import moment from "moment";
 
 export class WorkDayDetails extends Component {
 	state = {
 		remarks: "",
 		showTimeIn: false,
 		showTimeOut: false,
-		timeIn: "12:00 PM",
-		timeOut: "12:30 PM",
+		timeIn: "",
+		timeOut: "",
 		radioButtons: [
 			{
 				label: "Regular",
@@ -43,13 +44,21 @@ export class WorkDayDetails extends Component {
 		],
 	};
 
-	onTimeInChanged() {}
+	onTimeInChanged = (event, selectedDate) => {
+		var time = moment(selectedDate).format("h:mm:ss a");
+		this.setState({ showTimeIn: false, showTimeIn: false, timeIn: time });
+	};
+	onTimeOutChanged = (event, selectedDate) => {
+		var time = moment(selectedDate).format("h:mm:ss a");
+		this.setState({ showTimeOut: false, showTimeIn: false, timeOut: time });
+	};
+
 	onTimeInClicked = () => {
-		this.setState({ showTimeIn: true });
+		this.setState({ showTimeIn: true, showTimeOut: false });
 	};
 
 	onTimeOutClicked = () => {
-		this.setState({ showTimeOut: true });
+		this.setState({ showTimeIn: false, showTimeOut: true });
 	};
 
 	onWorkDayTypeChanged = (radioButtons) => {
@@ -84,6 +93,16 @@ export class WorkDayDetails extends Component {
 							is24Hour={false}
 							display="default"
 							onChange={this.onTimeInChanged}
+						/>
+					)}
+					{this.state.showTimeOut && (
+						<DateTimePicker
+							testID="dateTimePicker"
+							value={new Date()}
+							mode="time"
+							is24Hour={false}
+							display="default"
+							onChange={this.onTimeOutChanged}
 						/>
 					)}
 				</View>
