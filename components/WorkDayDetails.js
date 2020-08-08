@@ -4,12 +4,15 @@ import { RadioGroup } from "react-native-btr";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUserClock } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 export class WorkDayDetails extends Component {
 	state = {
 		remarks: "",
 		showTimeIn: false,
 		showTimeOut: false,
+		timeIn: "12:00 PM",
+		timeOut: "12:30 PM",
 		radioButtons: [
 			{
 				label: "Regular",
@@ -77,10 +80,35 @@ export class WorkDayDetails extends Component {
 						/>
 					)}
 				</View>
-				<View style={{ height: 100 }}>
-					<TouchableOpacity style={styles.timerButton}>
-						<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
-					</TouchableOpacity>
+				<View style={{ height: 100, marginTop: 20 }}>
+					<Grid>
+						<Row style={styles.row}>
+							<Col>
+								<Text style={styles.text}>Time in</Text>
+							</Col>
+							<Col>
+								<Text>{this.state.timeIn}</Text>
+							</Col>
+							<Col>
+								<TouchableOpacity style={styles.timerButton}>
+									<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
+								</TouchableOpacity>
+							</Col>
+						</Row>
+						<Row style={styles.row}>
+							<Col>
+								<Text style={styles.text}>Time out</Text>
+							</Col>
+							<Col>
+								<Text>{this.state.timeOut}</Text>
+							</Col>
+							<Col>
+								<TouchableOpacity style={styles.timerButton}>
+									<FontAwesomeIcon icon={faUserClock} size={30} color="teal" />
+								</TouchableOpacity>
+							</Col>
+						</Row>
+					</Grid>
 				</View>
 				<View style={styles.remarks}>
 					<Text style={{ color: "teal" }}>Remarks</Text>
@@ -134,8 +162,8 @@ const styles = StyleSheet.create({
 		borderWidth: 0,
 		padding: 10,
 		borderRadius: 7,
-		alignItems: "center",		
-		height: 60,
+		alignItems: "center",
+		height: 10,
 		justifyContent: "center",
 	},
 	button: {
@@ -147,5 +175,12 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: 60,
 		justifyContent: "center",
+	},
+	row: {
+		height: 40,
+	},
+	text: {
+		color: "teal",
+		paddingLeft: 10,
 	},
 });
