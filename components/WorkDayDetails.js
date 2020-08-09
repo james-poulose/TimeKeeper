@@ -102,7 +102,7 @@ export class WorkDayDetails extends Component {
 		};
 		new Helper().saveTimeDetails(monthYearCode, workDayItem);
 
-		// this.props.navigation.navigate("DateSelector");
+		this.props.navigation.navigate("DateSelector");
 	};
 	onGetComplete(result) {
 		console.log("received", result);
