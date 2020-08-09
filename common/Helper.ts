@@ -8,33 +8,58 @@ export default class Helper {
 		console.log("fdfd");
 	};
 
-	static saveTimeDetails(monthYearCode: string, timeData: WorkDayItem): void {
-		// Get the month's data (this may or may not be there)
-		let key = this.getKeyForMonth(monthYearCode);
-		const jsonString = this.getTimeDetails(monthYearCode);
-		let monthData: Map<string, WorkDayItem>;
-		if (jsonString != null) {
-			const parseData = JSON.parse(jsonString);
-			monthData = new Map(parseData);
-		} else {
-			monthData = new Map<string, WorkDayItem>();
-		}
-
-		// Update data set for the given month code.
-		monthData.set(monthYearCode, timeData);
-
+	putInStorage(key: string, data: any) {
 		// Put the full map back to Async store
-		let data = JSON.stringify(timeData);
-		AsyncStorage.setItem(key, data);
+		let serialized = JSON.stringify(data);
+		AsyncStorage.setItem(key, serialized)
+			.then(() => {
+				console.log("AsyncStorage.setItem success");
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 
-	static getTimeDetails(monthYearCode: string): string {
-		let monthData: string = null;
-		let key = this.getKeyForMonth(monthYearCode);
-		let monthDataPromise = AsyncStorage.getItem(key).then((data) => {
-			monthData = data;
+	static getFromStorage(key: string, callBack: any) {
+		AsyncStorage.getItem(key).then((result) => {
+			console.log("getFromStorage", result);
+			if (callBack) callBack(result);
 		});
-		return monthData;
+	}
+
+	saveTimeDetails(monthYearCode: string, timeData: WorkDayItem): void {
+		// Get the month's data (this may or may not be there)
+		let monthYearApplicationKey = this.getKeyForMonth(monthYearCode);
+		this.getTimeDetails(monthYearCode, (monthDataJsonString: any) => {
+			let monthData: Map<string, WorkDayItem>;
+			console.log("#100", Object.keys(monthDataJsonString));
+			console.log("#200", monthDataJsonString.constructor === Object);
+			if (Object.keys(monthDataJsonString).length === 0 && monthDataJsonString.constructor === Object) { 
+				console.log("Hambada villaaa...!!");
+			}
+			if (monthDataJsonString != null) {
+				console.log("monthDataJsonString", monthDataJsonString);
+				const parseData = JSON.parse(monthDataJsonString);
+				monthData = new Map(parseData);
+			} else {
+				monthData = new Map<string, WorkDayItem>();
+			}
+			// Update data set for the given month code.
+			let dateNumber = moment(timeData.date).date();
+			console.log("dateNumber", dateNumber);
+			monthData.set(dateNumber.toString(), timeData);
+
+			// Put the full map back to Async store
+			this.putInStorage(monthYearApplicationKey, monthData);
+		});
+	}
+
+	getTimeDetails(monthYearCode: string, callBack: any): void {
+		let monthYearApplicationKey = this.getKeyForMonth(monthYearCode);
+		AsyncStorage.getItem(monthYearApplicationKey).then((data) => {
+			console.log("getTimeDetails", data);
+			if (callBack) callBack(data);
+		});
 	}
 
 	static getMonthYearCodeFromDate(fullDate: string): string {
@@ -43,12 +68,12 @@ export default class Helper {
 		return code;
 	}
 
-	static getKeyForMonth(monthYearCode: string): string {
+	getKeyForMonth(monthYearCode: string): string {
 		return STORAGE_KEY + "_" + monthYearCode;
 	}
 
-	static getFormattedDateForDisplay(isoDate: string){
-		return moment(isoDate).format("DD-MMM-YYYY")
+	static getFormattedDateForDisplay(isoDate: string) {
+		return moment(isoDate).format("DD-MMM-YYYY");
 	}
 }
 

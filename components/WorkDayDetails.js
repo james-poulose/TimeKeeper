@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Button } from "react-native";
 import { RadioGroup } from "react-native-btr";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
@@ -87,7 +87,7 @@ export class WorkDayDetails extends Component {
 
 	onSaveClicked = () => {
 		const params = this.props.route.params;
-		const code = Helper.getMonthYearCodeFromDate(params.selectedDate);		
+		const code = Helper.getMonthYearCodeFromDate(params.selectedDate);
 		const workDayItem = {
 			date: params.selectedDate,
 			dayType: params.dayType,
@@ -95,12 +95,18 @@ export class WorkDayDetails extends Component {
 			timeOut: params.timeOut,
 			remarks: params.remarks,
 		};
-		Helper.saveTimeDetails(code, workDayItem);
-		const fromStore = Helper.getTimeDetails(code);
-		console.log(fromStore);
+		new Helper().saveTimeDetails(code, workDayItem);
+
 		// this.props.navigation.navigate("DateSelector");
 	};
-
+	onGetComplete(result) {
+		console.log("received", result);
+	}
+	onGetClicked = () => {
+		const params = this.props.route.params;
+		const code = Helper.getMonthYearCodeFromDate(params.selectedDate);
+		new Helper().getTimeDetails(code, this.onGetComplete);
+	};
 	saveDetails = () => {};
 
 	render() {
@@ -182,6 +188,9 @@ export class WorkDayDetails extends Component {
 						/>
 					</View>
 				)}
+				<TouchableOpacity onPress={this.onGetClicked} style={styles.button}>
+					<Text style={{ color: "white", fontSize: 16 }}>Get</Text>
+				</TouchableOpacity>
 				<View style={{ flex: 1 }}>
 					<View style={{ flex: 1, justifyContent: "flex-end" }}>
 						<TouchableOpacity onPress={this.onSaveClicked} style={styles.button}>
