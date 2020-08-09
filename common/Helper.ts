@@ -30,12 +30,11 @@ export default class Helper {
 	saveTimeDetails(monthYearCode: string, timeData: WorkDayItem): void {
 		// Get the month's data (this may or may not be there)
 		let monthYearApplicationKey = this.getKeyForMonth(monthYearCode);
-		this.getTimeDetails(monthYearCode, (monthDataJsonString: any) => {
+		this.getTimeDetails(monthYearCode, (monthDataJson: any) => {
 			let monthData: {};
 
-			if (monthDataJsonString != null) {
-				console.log("monthDataJsonString", monthDataJsonString);
-				monthData = JSON.parse(monthDataJsonString);
+			if (monthDataJson != null) {
+				console.log("monthDataJsonString", monthDataJson);				
 			}
 
 			// Update data set for the given month code.
@@ -49,8 +48,9 @@ export default class Helper {
 
 	getTimeDetails(monthYearCode: string, callBack: any): void {
 		let monthYearApplicationKey = this.getKeyForMonth(monthYearCode);
-		AsyncStorage.getItem(monthYearApplicationKey).then((data) => {			
-			if (callBack) callBack(data);
+		AsyncStorage.getItem(monthYearApplicationKey).then((monthDataJson) => {
+			let deserialized = JSON.parse(monthDataJson);				
+			if (callBack) callBack(deserialized);
 		});
 	}
 

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
-import { WorkDaySummary } from "./WorkDaySummary";
 import moment from "moment";
+import { WorkDaySummary } from "./WorkDaySummary";
+import Helper from "../common/Helper";
 
 export class DateSelector extends Component {
 	constructor(props) {
@@ -13,7 +14,10 @@ export class DateSelector extends Component {
 			timeIn: "Not set",
 			timeOut: "Not set",
 			remarks: "Not set",
+			markedDates: {},
 		};
+
+		this.getDataFromServer();
 	}
 
 	getDataFromServer = () => {
@@ -25,6 +29,48 @@ export class DateSelector extends Component {
 		// 	];
 		// });
 		// return data from local storage
+		const code = Helper.getMonthYearCodeFromDate(this.state.selectedDate);
+		new Helper().getTimeDetails(code, this.onDataReceived);
+	};
+
+	onDataReceived = (result) => {
+		const markedDates = {};
+		for (const property in result) {
+			let day = result[property];
+			let dateProp = moment(day.date).format("YYYY-MM-DD");
+			markedDates[dateProp] = this.getMarkedFormatForDay(day);
+		}
+		this.setState({ markedDates: markedDates });
+	};
+
+	getMarkedFormatForDay = (day) => {
+		// Defaults.
+		let selectedColor = "teal";
+		let textColor = "black";
+		switch (day.dayType) {
+			case "Casual":
+				selectedColor = "orange";
+				textColor = "black";
+				break;
+			case "Regular":
+				selectedColor = "green";
+				textColor = "black";
+				break;
+			case "Sick":
+				selectedColor = "red";
+				textColor = "black";
+				break;
+			case "Other":
+				selectedColor = "grey";
+				textColor = "black";
+				break;
+		}
+		return {
+			selected: true,
+			marked: true,
+			textColor: textColor,
+			selectedColor: selectedColor,
+		};
 	};
 
 	onDayPress = (day) => {
@@ -60,7 +106,13 @@ export class DateSelector extends Component {
 		return (
 			<View style={styles.container}>
 				<View>
-					<Calendar onDayPress={this.onDayPress} onDayLongPress={this.onDayLongPress} horizontal={true} />
+					<Calendar
+						onDayPress={this.onDayPress}
+						onDayLongPress={this.onDayLongPress}
+						horizontal={true}
+						markedDates={this.state.markedDates}
+						markingType={"multi-dot"}
+					/>
 				</View>
 				<View>
 					<WorkDaySummary
