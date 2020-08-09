@@ -13,7 +13,7 @@ export class WorkDayDetails extends Component {
 	constructor(props) {
 		super(props);
 		const params = props.route.params;
-		this.state = {			
+		this.state = {
 			showTimeIn: false,
 			showTimeOut: false,
 			showTimeControls: false,
@@ -104,14 +104,7 @@ export class WorkDayDetails extends Component {
 
 		this.props.navigation.navigate("DateSelector");
 	};
-	onGetComplete(result) {
-		console.log("received", result);
-	}
-	onGetClicked = () => {
-		const params = this.props.route.params;
-		const code = Helper.getMonthYearCodeFromDate(params.selectedDate);
-		new Helper().getTimeDetails(code, this.onGetComplete);
-	};
+
 	saveDetails = () => {};
 
 	render() {
@@ -193,9 +186,7 @@ export class WorkDayDetails extends Component {
 						/>
 					</View>
 				)}
-				<TouchableOpacity onPress={this.onGetClicked} style={styles.button}>
-					<Text style={{ color: "white", fontSize: 16 }}>Get</Text>
-				</TouchableOpacity>
+
 				<View style={{ flex: 1 }}>
 					<View style={{ flex: 1, justifyContent: "flex-end" }}>
 						<TouchableOpacity onPress={this.onSaveClicked} style={styles.button}>
