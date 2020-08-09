@@ -13,14 +13,16 @@ export class WorkDayDetails extends Component {
 	constructor(props) {
 		super(props);
 		const params = props.route.params;
-		this.state = {
-			remarks: "",
+		this.state = {			
 			showTimeIn: false,
 			showTimeOut: false,
 			showTimeControls: false,
 			showTimeRemarks: false,
 			timeIn: params.timeIn,
 			timeOut: params.timeOut,
+			date: params.selectedDate,
+			dayType: params.dayType,
+			remarks: params.remarks,
 			radioButtons: [
 				{
 					label: "Regular",
@@ -82,18 +84,21 @@ export class WorkDayDetails extends Component {
 			selectedItem.value == "Casual" || selectedItem.value == "Sick" || selectedItem.value == "Other";
 		let showTimeControls = selectedItem.value == "Casual" || selectedItem.value == "Regular";
 
-		this.setState({ showTimeControls: showTimeControls, showTimeRemarks: showRemarks });
+		this.setState({
+			showTimeControls: showTimeControls,
+			showTimeRemarks: showRemarks,
+			dayType: selectedItem.value,
+		});
 	};
 
 	onSaveClicked = () => {
-		const params = this.props.route.params;
-		const monthYearCode = Helper.getMonthYearCodeFromDate(params.selectedDate);
+		const monthYearCode = Helper.getMonthYearCodeFromDate(this.state.selectedDate);
 		const workDayItem = {
-			date: params.selectedDate,
-			dayType: params.dayType,
-			timeIn: params.timeIn,
-			timeOut: params.timeOut,
-			remarks: params.remarks,
+			date: this.state.selectedDate,
+			dayType: this.state.dayType,
+			timeIn: this.state.timeIn,
+			timeOut: this.state.timeOut,
+			remarks: this.state.remarks,
 		};
 		new Helper().saveTimeDetails(monthYearCode, workDayItem);
 
