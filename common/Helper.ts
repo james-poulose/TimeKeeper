@@ -34,7 +34,7 @@ export default class Helper {
 			let monthData: {};
 
 			if (monthDataJson != null) {
-				console.log("monthDataJsonString", monthDataJson);				
+				monthData = monthDataJson;		
 			}
 
 			// Update data set for the given month code.

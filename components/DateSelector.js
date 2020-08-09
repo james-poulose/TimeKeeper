@@ -9,6 +9,7 @@ export class DateSelector extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			monthData: {},
 			selectedDate: moment().toISOString(),
 			dayType: "Not set",
 			timeIn: "Not set",
@@ -40,7 +41,10 @@ export class DateSelector extends Component {
 			let dateProp = moment(day.date).format("YYYY-MM-DD");
 			markedDates[dateProp] = this.getMarkedFormatForDay(day);
 		}
-		this.setState({ markedDates: markedDates });
+
+		this.setState({ monthData: result, markedDates: markedDates }, () => {
+			this.updateSummaryForDate(this.state.selectedDate);
+		});
 	};
 
 	getMarkedFormatForDay = (day) => {
@@ -73,14 +77,28 @@ export class DateSelector extends Component {
 		};
 	};
 
+	updateSummaryForDate = (dateString) => {
+		const momentDate = moment(dateString);
+		let selectedDateProp = momentDate.date().toString();
+		let selectedDateDetails = this.state.monthData[selectedDateProp];
+		if (selectedDateDetails == null) {
+			selectedDateDetails = {};
+		}
+		this.setState({
+			dayType: selectedDateDetails.dayType,
+			timeIn: selectedDateDetails.timeIn,
+			timeOut: selectedDateDetails.timeOut,
+			remarks: selectedDateDetails.remarks,
+		});
+	};
+
 	onDayPress = (day) => {
-		var now = moment(day.dateString).toISOString();
+		const momentDate = moment(day.dateString);
+		var now = momentDate.toISOString();
+		this.updateSummaryForDate(day.dateString);
+
 		this.setState({
 			selectedDate: now,
-			// dayType: "NA",
-			// timeIn: "NA",
-			// timeOut: "NA",
-			// remarks: "NA",
 		});
 	};
 
