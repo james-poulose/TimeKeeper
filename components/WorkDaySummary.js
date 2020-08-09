@@ -7,11 +7,13 @@ export class WorkDaySummary extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedDate: moment(this.props.selectedDate).format("DD-MMM-YYYY"),
+			// selectedDate: moment(this.props.selectedDate).format("DD-MMM-YYYY"),
 		};
 	}
 
 	render() {
+		const formattedDate = moment(this.props.selectedDate).format("DD-MMM-YYYY");
+
 		return (
 			<View style={styles.container}>
 				<Grid>
@@ -20,7 +22,7 @@ export class WorkDaySummary extends Component {
 							<Text style={styles.text}>Date:</Text>
 						</Col>
 						<Col>
-							<Text style={styles.text}>{this.state.selectedDate}</Text>
+							<Text style={styles.text}>{formattedDate}</Text>
 						</Col>
 					</Row>
 					<Row style={styles.row}>
