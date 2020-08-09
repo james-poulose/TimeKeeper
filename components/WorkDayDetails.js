@@ -6,11 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUserClock } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import moment from "moment";
-import Helper from "../common/Helper"
+import Helper from "../common/Helper";
 
 export class WorkDayDetails extends Component {
+	//params={};
 	constructor(props) {
-		super(props);		
+		super(props);
 		const params = props.route.params;
 		this.state = {
 			remarks: "",
@@ -51,7 +52,8 @@ export class WorkDayDetails extends Component {
 		};
 
 		// Update the title to include the selected date.
-		this.props.navigation.setOptions({title: "Time Details (" + params.selectedDate + ")"});
+		const formatted = Helper.getFormattedDateForDisplay(params.selectedDate);
+		this.props.navigation.setOptions({ title: "Time Details (" + formatted + ")" });
 	}
 
 	onTimeInChanged = (event, selectedDate) => {
@@ -76,21 +78,30 @@ export class WorkDayDetails extends Component {
 		this.setState({ radioButtons });
 
 		let selectedItem = this.state.radioButtons.find((e) => e.checked == true);
-		let showRemarks = selectedItem.value == "Casual" || selectedItem.value == "Sick" || selectedItem.value == "Other";
+		let showRemarks =
+			selectedItem.value == "Casual" || selectedItem.value == "Sick" || selectedItem.value == "Other";
 		let showTimeControls = selectedItem.value == "Casual" || selectedItem.value == "Regular";
 
 		this.setState({ showTimeControls: showTimeControls, showTimeRemarks: showRemarks });
 	};
 
 	onSaveClicked = () => {
-		const code = Helper.getMonthYearCodeFromDate("12-Sep-1992");
-		console.log(code);
+		const params = this.props.route.params;
+		const code = Helper.getMonthYearCodeFromDate(params.selectedDate);		
+		const workDayItem = {
+			date: params.selectedDate,
+			dayType: params.dayType,
+			timeIn: params.timeIn,
+			timeOut: params.timeOut,
+			remarks: params.remarks,
+		};
+		Helper.saveTimeDetails(code, workDayItem);
+		const fromStore = Helper.getTimeDetails(code);
+		console.log(fromStore);
 		// this.props.navigation.navigate("DateSelector");
 	};
 
-	saveDetails = () =>{
-
-	}
+	saveDetails = () => {};
 
 	render() {
 		return (
