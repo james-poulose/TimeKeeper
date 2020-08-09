@@ -8,16 +8,12 @@ export class DateSelector extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			selectedDate: "None",
-			dayType: "NA",
-			timeIn: "NA",
-			timeOut: "NA",
-			remarks: "NA",
-		};		
-	}
-
-	componentDidMount(){
-		// this.getDataFromServer();
+			selectedDate: moment().toISOString(),
+			dayType: "Not set",
+			timeIn: "Not set",
+			timeOut: "Not set",
+			remarks: "Not set",
+		};
 	}
 
 	getDataFromServer = () => {
@@ -28,12 +24,12 @@ export class DateSelector extends Component {
 		// 		{ date: "", timeIn: "" },
 		// 	];
 		// });
-
-		// return data from local storage		
+		// return data from local storage
 	};
 
 	onDayPress = (day) => {
-		var now = moment(day.dateString).format("DD-MMM-YYYY");
+		var now = moment(day.dateString).toISOString();
+		console.log(now);
 		this.setState({
 			selectedDate: now,
 			// dayType: "NA",
@@ -44,8 +40,22 @@ export class DateSelector extends Component {
 	};
 
 	onDayLongPress(day) {
-		this.props.navigation.navigate("WorkDayDetails");
+		goToWorkDayDetails();
 	}
+
+	onEditClicked = () => {
+		goToWorkDayDetails();
+	};
+
+	goToWorkDayDetails = () => {
+		this.props.navigation.navigate("WorkDayDetails", {
+			selectedDate: this.state.selectedDate,
+			timeIn: this.state.timeIn,
+			timeOut: this.state.timeOut,
+			remarks: this.state.remarks,
+			dayType: this.state.dayType,
+		});
+	};
 
 	render() {
 		return (
@@ -64,10 +74,7 @@ export class DateSelector extends Component {
 				</View>
 				<View style={{ flex: 1 }}>
 					<View style={{ flex: 1, justifyContent: "flex-end" }}>
-						<TouchableOpacity
-							onPress={() => this.props.navigation.navigate("WorkDayDetails")}
-							style={styles.button}
-						>
+						<TouchableOpacity onPress={this.onEditClicked} style={styles.button}>
 							<Text style={{ color: "white", fontSize: 16 }}>Edit</Text>
 						</TouchableOpacity>
 					</View>

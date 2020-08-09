@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
 import { Col, Row, Grid } from "react-native-easy-grid";
+import moment from "moment";
 
 export class WorkDaySummary extends Component {
-	state = {
-		remarks: "",
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			selectedDate: moment(this.props.selectedDate).format("DD-MMM-YYYY"),
+		};
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -15,7 +20,7 @@ export class WorkDaySummary extends Component {
 							<Text style={styles.text}>Date:</Text>
 						</Col>
 						<Col>
-							<Text style={styles.text}>{this.props.selectedDate}</Text>
+							<Text style={styles.text}>{this.state.selectedDate}</Text>
 						</Col>
 					</Row>
 					<Row style={styles.row}>
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
 		height: 30,
 		borderBottomWidth: 1,
 		borderColor: "lightgrey",
-		marginTop: 15
+		marginTop: 15,
 	},
 	text: {
 		color: "teal",

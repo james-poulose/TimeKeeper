@@ -6,18 +6,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUserClock } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import moment from "moment";
+import Helper from "../common/Helper"
 
 export class WorkDayDetails extends Component {
 	constructor(props) {
-		super(props);
+		super(props);		
+		const params = props.route.params;
 		this.state = {
 			remarks: "",
 			showTimeIn: false,
 			showTimeOut: false,
 			showTimeControls: false,
 			showTimeRemarks: false,
-			timeIn: "",
-			timeOut: "",
+			timeIn: params.timeIn,
+			timeOut: params.timeOut,
 			radioButtons: [
 				{
 					label: "Regular",
@@ -47,12 +49,16 @@ export class WorkDayDetails extends Component {
 				},
 			],
 		};
+
+		// Update the title to include the selected date.
+		this.props.navigation.setOptions({title: "Time Details (" + params.selectedDate + ")"});
 	}
 
 	onTimeInChanged = (event, selectedDate) => {
 		var time = moment(selectedDate).format("h:mm:ss a");
 		this.setState({ showTimeIn: false, showTimeIn: false, timeIn: time });
 	};
+
 	onTimeOutChanged = (event, selectedDate) => {
 		var time = moment(selectedDate).format("h:mm:ss a");
 		this.setState({ showTimeOut: false, showTimeIn: false, timeOut: time });
@@ -77,8 +83,14 @@ export class WorkDayDetails extends Component {
 	};
 
 	onSaveClicked = () => {
-		this.props.navigation.navigate("DateSelector");
+		const code = Helper.getMonthYearCodeFromDate("12-Sep-1992");
+		console.log(code);
+		// this.props.navigation.navigate("DateSelector");
 	};
+
+	saveDetails = () =>{
+
+	}
 
 	render() {
 		return (

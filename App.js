@@ -12,17 +12,13 @@ export default class App extends Component {
 	render() {
 		return (
 			<NavigationContainer>
-				<Stack.Navigator initialRouteName="Home">
+				<Stack.Navigator initialRouteName="Home" screenOptions={{ headerTintColor: "teal" }}>
 					<Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-					<Stack.Screen
-						name="DateSelector"
-						component={DateSelector}
-						options={{ title: "Choose Date", headerTintColor: "teal" }}
-					/>
+					<Stack.Screen name="DateSelector" component={DateSelector} options={{ title: "Choose Date" }} />
 					<Stack.Screen
 						name="WorkDayDetails"
 						component={WorkDayDetails}
-						options={{ title: "Time Details", headerTintColor: "teal" }}
+						options={{ title: "Time Details" }}
 					/>
 				</Stack.Navigator>
 			</NavigationContainer>
