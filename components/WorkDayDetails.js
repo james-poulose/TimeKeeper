@@ -20,7 +20,7 @@ export class WorkDayDetails extends Component {
 			showTimeRemarks: false,
 			timeIn: params.timeIn,
 			timeOut: params.timeOut,
-			date: params.selectedDate,
+			selectedDate: params.selectedDate,
 			dayType: params.dayType,
 			remarks: params.remarks,
 			radioButtons: [
