@@ -87,7 +87,7 @@ export class WorkDayDetails extends Component {
 
 	onSaveClicked = () => {
 		const params = this.props.route.params;
-		const code = Helper.getMonthYearCodeFromDate(params.selectedDate);
+		const monthYearCode = Helper.getMonthYearCodeFromDate(params.selectedDate);
 		const workDayItem = {
 			date: params.selectedDate,
 			dayType: params.dayType,
@@ -95,7 +95,7 @@ export class WorkDayDetails extends Component {
 			timeOut: params.timeOut,
 			remarks: params.remarks,
 		};
-		new Helper().saveTimeDetails(code, workDayItem);
+		new Helper().saveTimeDetails(monthYearCode, workDayItem);
 
 		// this.props.navigation.navigate("DateSelector");
 	};
