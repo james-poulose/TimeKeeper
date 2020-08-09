@@ -29,7 +29,6 @@ export class DateSelector extends Component {
 
 	onDayPress = (day) => {
 		var now = moment(day.dateString).toISOString();
-		console.log(now);
 		this.setState({
 			selectedDate: now,
 			// dayType: "NA",
@@ -40,11 +39,11 @@ export class DateSelector extends Component {
 	};
 
 	onDayLongPress(day) {
-		goToWorkDayDetails();
+		this.goToWorkDayDetails();
 	}
 
 	onEditClicked = () => {
-		goToWorkDayDetails();
+		this.goToWorkDayDetails();
 	};
 
 	goToWorkDayDetails = () => {

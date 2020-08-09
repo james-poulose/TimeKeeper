@@ -46,6 +46,10 @@ export default class Helper {
 	static getKeyForMonth(monthYearCode: string): string {
 		return STORAGE_KEY + "_" + monthYearCode;
 	}
+
+	static getFormattedDateForDisplay(isoDate: string){
+		return moment(isoDate).format("DD-MMM-YYYY")
+	}
 }
 
 type WorkDayItem = {

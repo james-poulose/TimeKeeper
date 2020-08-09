@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from "react-native";
 import { Col, Row, Grid } from "react-native-easy-grid";
+import Helper from "../common/Helper";
 import moment from "moment";
 
 export class WorkDaySummary extends Component {
@@ -12,7 +13,7 @@ export class WorkDaySummary extends Component {
 	}
 
 	render() {
-		const formattedDate = moment(this.props.selectedDate).format("DD-MMM-YYYY");
+		const formattedDate = Helper.getFormattedDateForDisplay(moment(this.props.selectedDate));
 
 		return (
 			<View style={styles.container}>
