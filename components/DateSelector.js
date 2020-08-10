@@ -16,6 +16,8 @@ export class DateSelector extends Component {
 			timeOut: "Not set",
 			remarks: "Not set",
 			markedDates: {},
+			currentMarkedDate: {},
+			combinedMarkedDate: {},
 		};
 
 		this.getDataFromServer();
@@ -35,21 +37,23 @@ export class DateSelector extends Component {
 	};
 
 	onDataReceived = (result) => {
-		const markedDates = {};
+		const markedDates = {},
+			combinedMarkedDate = {};
 		for (const property in result) {
 			let day = result[property];
 			let dateProp = moment(day.date).format("YYYY-MM-DD");
 			markedDates[dateProp] = this.getMarkedFormatForDay(day);
+			combinedMarkedDate[dateProp] = markedDates[dateProp];
 		}
 
-		this.setState({ monthData: result, markedDates: markedDates }, () => {
+		this.setState({ monthData: result, markedDates: markedDates, combinedMarkedDate: combinedMarkedDate }, () => {
 			this.updateSummaryForDate(this.state.selectedDate);
 		});
 	};
 
 	getMarkedFormatForDay = (day) => {
 		// Defaults.
-		let selectedColor = "teal";
+		let selectedColor = "darkgrey";
 		let textColor = "black";
 		switch (day.dayType) {
 			case "Casual":
@@ -100,8 +104,24 @@ export class DateSelector extends Component {
 		var now = momentDate.toISOString();
 		this.updateSummaryForDate(day.dateString);
 
+		let touchedDateProp = momentDate.format("YYYY-MM-DD");
+		const touchedMarkedDate = {};
+		touchedMarkedDate[touchedDateProp] = {
+			selected: true,
+			marked: true,
+			textColor: "white",
+			selectedColor: "teal",
+		};
+
+		let combinedMarkedDate = {};
+		for (const property in this.state.markedDates) {
+			combinedMarkedDate[property] = this.state.markedDates[property];
+		}
+		combinedMarkedDate[touchedDateProp] = touchedMarkedDate[touchedDateProp];
+
 		this.setState({
 			selectedDate: now,
+			combinedMarkedDate: combinedMarkedDate,
 		});
 	};
 
@@ -131,7 +151,7 @@ export class DateSelector extends Component {
 						onDayPress={this.onDayPress}
 						onDayLongPress={this.onDayLongPress}
 						horizontal={true}
-						markedDates={this.state.markedDates}
+						markedDates={this.state.combinedMarkedDate}
 						markingType={"multi-dot"}
 					/>
 				</View>
