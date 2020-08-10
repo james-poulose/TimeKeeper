@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert, Button } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUserClock } from "@fortawesome/free-solid-svg-icons";
+import Helper from "../common/Helper";
 
 export class Home extends Component {
+	onClearStorage = () =>{
+		Helper.clearLocalStorage();
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -24,7 +28,8 @@ export class Home extends Component {
 						<Text style={{ color: "white" }}>Manage Time</Text>
 					</TouchableOpacity>
 				</View>
-				<Text style={styles.version}>v{Constants.manifest.version}</Text>
+				<Text style={styles.version}>{Constants.manifest.version}</Text>
+				{/* <Button title="Clear Storage" onPress={this.onClearStorage}></Button> */}
 				<StatusBar style="auto" />
 			</View>
 		);

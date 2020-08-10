@@ -80,7 +80,10 @@ export class DateSelector extends Component {
 	updateSummaryForDate = (dateString) => {
 		const momentDate = moment(dateString);
 		let selectedDateProp = momentDate.date().toString();
-		let selectedDateDetails = this.state.monthData[selectedDateProp];
+		let selectedDateDetails;
+		if (this.state.monthData != null) {
+			selectedDateDetails = this.state.monthData[selectedDateProp];
+		}
 		if (selectedDateDetails == null) {
 			selectedDateDetails = {};
 		}

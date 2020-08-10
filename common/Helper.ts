@@ -34,11 +34,11 @@ export default class Helper {
 			let monthData: {};
 
 			if (monthDataJson != null) {
-				monthData = monthDataJson;		
+				monthData = monthDataJson;
 			}
 
 			// Update data set for the given month code.
-			let dateNumber = moment(timeData.date).date();			
+			let dateNumber = moment(timeData.date).date();
 			monthData[dateNumber.toString()] = timeData;
 
 			// Put the full map back to Async store
@@ -49,7 +49,7 @@ export default class Helper {
 	getTimeDetails(monthYearCode: string, callBack: any): void {
 		let monthYearApplicationKey = this.getKeyForMonth(monthYearCode);
 		AsyncStorage.getItem(monthYearApplicationKey).then((monthDataJson) => {
-			let deserialized = JSON.parse(monthDataJson);				
+			let deserialized = JSON.parse(monthDataJson);
 			if (callBack) callBack(deserialized);
 		});
 	}
@@ -66,6 +66,10 @@ export default class Helper {
 
 	static getFormattedDateForDisplay(isoDate: string) {
 		return moment(isoDate).format("DD-MMM-YYYY");
+	}
+
+	static clearLocalStorage() {
+		AsyncStorage.clear();
 	}
 }
 
