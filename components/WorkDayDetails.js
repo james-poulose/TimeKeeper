@@ -147,12 +147,10 @@ export class WorkDayDetails extends Component {
 			timeOut: this.state.timeOut,
 			remarks: this.state.remarks,
 		};
-		new Helper().saveTimeDetails(monthYearCode, workDayItem);
-
-		this.props.navigation.navigate("DateSelector");
+		new Helper().saveTimeDetails(monthYearCode, workDayItem, () => {
+			this.props.navigation.navigate("DateSelector");
+		});
 	};
-
-	saveDetails = () => {};
 
 	render() {
 		return (

@@ -8,12 +8,13 @@ export default class Helper {
 		console.log("fdfd");
 	};
 
-	putInStorage(key: string, data: any) {
+	putInStorage(key: string, data: any, callBack: any) {
 		// Put the full map back to Async store
 		let serialized = JSON.stringify(data);
 		AsyncStorage.setItem(key, serialized)
 			.then(() => {
 				console.log("AsyncStorage.setItem success");
+				if (callBack) callBack("Success");
 			})
 			.catch((error) => {
 				console.log(error);
@@ -27,7 +28,7 @@ export default class Helper {
 		});
 	}
 
-	saveTimeDetails(monthYearCode: string, timeData: WorkDayItem): void {
+	saveTimeDetails(monthYearCode: string, timeData: WorkDayItem, callBack: any): void {
 		// Get the month's data (this may or may not be there)
 		let monthYearApplicationKey = this.getKeyForMonth(monthYearCode);
 		this.getTimeDetails(monthYearCode, (monthDataJson: any) => {
@@ -42,7 +43,7 @@ export default class Helper {
 			monthData[dateNumber.toString()] = timeData;
 
 			// Put the full map back to Async store
-			this.putInStorage(monthYearApplicationKey, monthData);
+			this.putInStorage(monthYearApplicationKey, monthData, callBack);
 		});
 	}
 

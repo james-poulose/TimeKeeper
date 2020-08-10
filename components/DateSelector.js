@@ -21,6 +21,11 @@ export class DateSelector extends Component {
 		};
 
 		this.getDataFromServer(this.state.selectedDate);
+
+		// On focus event wore up. When we come back from WorkDayDetails, we need to re-fetch data and show the latest information on the calendar.
+		this.props.navigation.addListener("focus", () => {
+			this.getDataFromServer(this.state.selectedDate);			
+		});
 	}
 
 	getDataFromServer = (isoDateString) => {
@@ -145,6 +150,7 @@ export class DateSelector extends Component {
 
 	onMonthChanged = (month) => {
 		const momentMonth = moment(month.dateString);
+		this.setState({ selectedDate: momentMonth.toISOString() });
 		this.getDataFromServer(momentMonth.toISOString());
 	};
 
