@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faUserClock } from "@fortawesome/free-solid-svg-icons";
@@ -12,11 +13,7 @@ export class Home extends Component {
 					<Text style={styles.title}>TIMEKEEPER</Text>
 				</View>
 				<View style={{ height: 250 }}>
-					<FontAwesomeIcon
-						icon={faUserClock}
-						size={80}
-						color="teal"
-					/>
+					<FontAwesomeIcon icon={faUserClock} size={80} color="teal" />
 				</View>
 				<View style={{ height: 50 }}>
 					<TouchableOpacity
@@ -27,7 +24,7 @@ export class Home extends Component {
 						<Text style={{ color: "white" }}>Manage Time</Text>
 					</TouchableOpacity>
 				</View>
-
+				<Text style={styles.version}>v{Constants.manifest.version}</Text>
 				<StatusBar style="auto" />
 			</View>
 		);
@@ -55,4 +52,5 @@ const styles = StyleSheet.create({
 		width: 150,
 		alignItems: "center",
 	},
+	version: { color: "lightgrey" },
 });
