@@ -31,7 +31,7 @@ export default class Helper {
 		// Get the month's data (this may or may not be there)
 		let monthYearApplicationKey = this.getKeyForMonth(monthYearCode);
 		this.getTimeDetails(monthYearCode, (monthDataJson: any) => {
-			let monthData: {};
+			let monthData = {};
 
 			if (monthDataJson != null) {
 				monthData = monthDataJson;

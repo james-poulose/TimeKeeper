@@ -93,7 +93,7 @@ export class WorkDayDetails extends Component {
 		if (radio != null) {
 			radio.checked = true;
 			radios[findIndex] = radio;
-		}else{
+		} else {
 			// Set default to 'Not Available
 			let findIndex = radios.findIndex((e) => e.value == "NA");
 			let radio = radios[findIndex];
@@ -101,17 +101,22 @@ export class WorkDayDetails extends Component {
 			radios[findIndex] = radio;
 		}
 
-		const { showTimeControls, showRemarks } = this.getControlState(true);
+		const { showTimeControls, showRemarks } = this.getControlState(false);
 		this.state.showTimeControls = showTimeControls;
 		this.state.showRemarks = showRemarks;
 	};
 
 	updateControlState = () => {
-		const { selectedItem, showTimeControls, showRemarks } = this.getControlState(false);
+		const { selectedItem, showTimeControls, showRemarks } = this.getControlState(true);
+		let dayType = "NA";
+		if (selectedItem != null) {
+			dayType = selectedItem.value;
+		}
+		console.log(showTimeControls, showRemarks);
 		this.setState({
 			showTimeControls: showTimeControls,
 			showTimeRemarks: showRemarks,
-			dayType: selectedItem.value,
+			dayType: dayType,
 		});
 	};
 
