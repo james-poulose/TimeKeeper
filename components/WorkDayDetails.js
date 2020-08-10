@@ -47,11 +47,13 @@ export class WorkDayDetails extends Component {
 				{
 					label: "Not available",
 					value: "NA",
-					checked: true,
 					color: "teal",
 				},
 			],
 		};
+
+		// Update the Radio group based on the value we received
+		this.setRadioSelection();
 
 		// Update the title to include the selected date.
 		const formatted = Helper.getFormattedDateForDisplay(params.selectedDate);
@@ -77,18 +79,58 @@ export class WorkDayDetails extends Component {
 	};
 
 	onWorkDayTypeChanged = (radioButtons) => {
-		this.setState({ radioButtons });
+		this.setState({ radioButtons }, () => {
+			this.updateControlState();
+		});
+	};
 
-		let selectedItem = this.state.radioButtons.find((e) => e.checked == true);
-		let showRemarks =
-			selectedItem.value == "Casual" || selectedItem.value == "Sick" || selectedItem.value == "Other";
-		let showTimeControls = selectedItem.value == "Casual" || selectedItem.value == "Regular";
+	setRadioSelection = () => {
+		// IMPORTANT: This call originates from ctor.Since component is not yet finished mounting, no need to call setState,
+		// including the const 'radios' variable as it points to 'this.state.radioButtons'.
+		const radios = this.state.radioButtons;
+		let findIndex = radios.findIndex((e) => e.value == this.state.dayType);
+		let radio = radios[findIndex];
+		if (radio != null) {
+			radio.checked = true;
+			radios[findIndex] = radio;
+		}else{
+			// Set default to 'Not Available
+			let findIndex = radios.findIndex((e) => e.value == "NA");
+			let radio = radios[findIndex];
+			radio.checked = true;
+			radios[findIndex] = radio;
+		}
 
+		const { showTimeControls, showRemarks } = this.getControlState(true);
+		this.state.showTimeControls = showTimeControls;
+		this.state.showRemarks = showRemarks;
+	};
+
+	updateControlState = () => {
+		const { selectedItem, showTimeControls, showRemarks } = this.getControlState(false);
 		this.setState({
 			showTimeControls: showTimeControls,
 			showTimeRemarks: showRemarks,
 			dayType: selectedItem.value,
 		});
+	};
+
+	getControlState = (basedOnCheckState) => {
+		let selectedItem,
+			showRemarks = false,
+			showTimeControls = false;
+		if (basedOnCheckState) {
+			selectedItem = this.state.radioButtons.find((e) => e.checked == true);
+		} else {
+			selectedItem = this.state.radioButtons.find((e) => e.value == this.state.dayType);
+		}
+
+		if (selectedItem != null) {
+			showRemarks =
+				selectedItem.value == "Casual" || selectedItem.value == "Sick" || selectedItem.value == "Other";
+			showTimeControls = selectedItem.value == "Casual" || selectedItem.value == "Regular";
+		}
+		return { selectedItem: selectedItem, showRemarks: showRemarks, showTimeControls: showTimeControls };
 	};
 
 	onSaveClicked = () => {
