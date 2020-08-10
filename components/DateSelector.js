@@ -20,10 +20,10 @@ export class DateSelector extends Component {
 			combinedMarkedDate: {},
 		};
 
-		this.getDataFromServer();
+		this.getDataFromServer(this.state.selectedDate);
 	}
 
-	getDataFromServer = () => {
+	getDataFromServer = (isoDateString) => {
 		// fetch("http://your-hr-api/").then((result) => {
 		// 	let data = [
 		// 		{ date: "", timeIn: "" },
@@ -32,7 +32,7 @@ export class DateSelector extends Component {
 		// 	];
 		// });
 		// return data from local storage
-		const code = Helper.getMonthYearCodeFromDate(this.state.selectedDate);
+		const code = Helper.getMonthYearCodeFromDate(isoDateString);
 		new Helper().getTimeDetails(code, this.onDataReceived);
 	};
 
@@ -143,6 +143,11 @@ export class DateSelector extends Component {
 		});
 	};
 
+	onMonthChanged = (month) => {
+		const momentMonth = moment(month.dateString);
+		this.getDataFromServer(momentMonth.toISOString());
+	};
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -153,6 +158,7 @@ export class DateSelector extends Component {
 						horizontal={true}
 						markedDates={this.state.combinedMarkedDate}
 						markingType={"multi-dot"}
+						onMonthChange={this.onMonthChanged}
 					/>
 				</View>
 				<View>
