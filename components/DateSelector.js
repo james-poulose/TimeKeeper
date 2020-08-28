@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 import moment from "moment";
+import { BackHandler } from "react-native";
 import { WorkDaySummary } from "./WorkDaySummary";
 import Helper from "../common/Helper";
 
 export class DateSelector extends Component {
+	backHandler = null;
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -20,11 +22,21 @@ export class DateSelector extends Component {
 			combinedMarkedDate: {},
 		};
 
+		BackHandler.addEventListener("hardwareBackPress", () => {
+			Helper.getFromStorage("isLoggedIn", (result) => {
+				var isLoggedIn = JSON.parse(result);
+				if (isLoggedIn === "1") {
+					BackHandler.exitApp();
+					return true;
+				}
+			});
+		});
+
 		this.getDataFromServer(this.state.selectedDate);
 
 		// On focus event wore up. When we come back from WorkDayDetails, we need to re-fetch data and show the latest information on the calendar.
 		this.props.navigation.addListener("focus", () => {
-			this.getDataFromServer(this.state.selectedDate);			
+			this.getDataFromServer(this.state.selectedDate);
 		});
 	}
 
